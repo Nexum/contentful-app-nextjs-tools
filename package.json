@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "keywords": ["nextjs", "contentful", "contentful-app", "cms", "next", "react"],
+  "peerDependencies": {
+    "next": "^14"
+  },
   "dependencies": {
     "@contentful/node-apps-toolkit": "^2.8.0",
     "@contentful/app-sdk": "^4",
