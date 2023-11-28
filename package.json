@@ -1,0 +1,12 @@
+{
+  "name": "contentful-nextjs-tools",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@contentful/node-apps-toolkit": "^2.8.0",
+    "@contentful/app-sdk": "^4",
+    "contentful-management": "^11",
+    "zustand": "^4"
+  }
+}
