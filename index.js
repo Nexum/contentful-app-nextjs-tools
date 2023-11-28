@@ -2,6 +2,10 @@ import {createClient} from 'contentful-management';
 import {create} from 'zustand';
 import {init as initContentfulApp} from '@contentful/app-sdk';
 
+/**
+ *
+ * @type {{resolve: ((function(): never)|*), reject: ((function(): never)|*), promise: {Promise<unknown>}}}
+ */
 const waitForContentfulPromiseStore = {
     promise: null,
     resolve: () => {
@@ -12,11 +16,19 @@ const waitForContentfulPromiseStore = {
     }
 }
 
+/**
+ *
+ * @type {Promise<unknown>}
+ */
 waitForContentfulPromiseStore.promise = new Promise((resolve, reject) => {
     waitForContentfulPromiseStore.resolve = resolve;
     waitForContentfulPromiseStore.reject = reject;
 });
 
+/**
+ *
+ * @type {UseBoundStore<Mutate<StoreApi<{client: null, setSdk: function(*): void, waitForContentful: null, sdk: null}>, []>>}
+ */
 export const useContentful = create((set) => ({
     client: null,
     sdk: null,
@@ -31,22 +43,47 @@ initContentfulApp((sdk) => {
     useContentful.getState().setSdk(sdk)
 });
 
+/**
+ * returns the contentful-management client if initialized
+ *
+ * @returns {null}
+ */
 export const useContentfulClient = () => {
     return useContentful(store => store.client);
 }
 
+/**
+ *
+ * @returns {CMAClient | PlainClientAPI}
+ */
 export const useContentfulCma = () => {
     return useContentful(store => store.sdk?.cma);
 }
 
+/**
+ *
+ * @returns {null}
+ */
 export const useContentfulSdk = () => {
-    return useContentful(store => store.client);
+    return useContentful(store => store.sdk);
 }
 
+/**
+ * Takes the regular fetch options, passes them through extended by the signed contentful headers
+ *
+ * @param url
+ * @param options
+ * @returns {Promise<Response>}
+ */
 export const contentfulSignedFetch = async (url, options = {method: "GET"}) => {
     return fetch(url, await applyContentfulHeaders({url, ...options}));
 }
 
+/**
+ *
+ * @param req
+ * @returns {Promise<{url: string}>}
+ */
 export const applyContentfulHeaders = async (req) => {
     await useContentful.getState().waitForContentful;
 

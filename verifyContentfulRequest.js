@@ -1,5 +1,12 @@
 import {verifyRequest} from '@contentful/node-apps-toolkit';
 
+/**
+ * Validate a Request, wrap your nextJs route handler in this
+ *
+ * @param reqHandlerFunc
+ * @param secret
+ * @returns {(function(*): Promise<Response|*>)|*}
+ */
 export const verifyContentfulRequest = (reqHandlerFunc, secret) => {
     return async function(req)  {
         const headerObj = {};
