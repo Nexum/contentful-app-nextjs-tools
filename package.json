@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "^18"
+    "node": ">=18"
   },
   "license": "MIT",
   "keywords": ["nextjs", "contentful", "contentful-app", "cms", "next", "react"],
@@ -11,7 +11,7 @@
     "next": "^14"
   },
   "dependencies": {
-    "@contentful/node-apps-toolkit": "^2.8.0",
+    "@contentful/node-apps-toolkit": "^2",
     "@contentful/app-sdk": "^4",
     "contentful-management": "^11",
     "zustand": "^4"
