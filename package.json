@@ -1,12 +1,19 @@
 {
   "name": "contentful-app-nextjs-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "engines": {
     "node": ">=18"
   },
   "license": "MIT",
-  "keywords": ["nextjs", "contentful", "contentful-app", "cms", "next", "react"],
+  "keywords": [
+    "nextjs",
+    "contentful",
+    "contentful-app",
+    "cms",
+    "next",
+    "react"
+  ],
   "peerDependencies": {
     "next": "^14"
   },
