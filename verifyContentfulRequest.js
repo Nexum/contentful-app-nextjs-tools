@@ -1,4 +1,5 @@
 import {verifyRequest} from '@contentful/node-apps-toolkit';
+import {Readable} from "stream";
 
 /**
  * Validate a Request, wrap your nextJs route handler in this
@@ -9,6 +10,12 @@ import {verifyRequest} from '@contentful/node-apps-toolkit';
  */
 export const verifyContentfulRequest = (reqHandlerFunc, secret) => {
     return async function(req)  {
+        let bodyForVerification;
+        if(req.body) {
+            const cloneReq = req.clone();
+            bodyForVerification = await cloneReq.text();
+        }
+
         const headerObj = {};
         req.headers.forEach((value, header) => {
             headerObj[header] = value;
@@ -18,7 +25,7 @@ export const verifyContentfulRequest = (reqHandlerFunc, secret) => {
             path: req.nextUrl.pathname,
             headers: headerObj,
             method: req.method,
-            body: req.body ? JSON.stringify(req.body) : undefined,
+            body: bodyForVerification,
         };
 
         try {
