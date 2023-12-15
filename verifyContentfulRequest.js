@@ -1,5 +1,4 @@
 import {verifyRequest} from '@contentful/node-apps-toolkit';
-import {Readable} from "stream";
 
 /**
  * Validate a Request, wrap your nextJs route handler in this
@@ -31,6 +30,10 @@ export const verifyContentfulRequest = (reqHandlerFunc, secret) => {
         try {
             if (!verifyRequest(secret || process.env.CONTENTFUL_SIGNING_SECRET, canonicalRequest)) {
                 throw new Error(`Unauthorized`)
+            }
+
+            req.contentfulInfo = {
+                userId: req.headers.get("X-Contentful-User-ID"),
             }
         } catch (e) {
             return new Response(e.message, {status: 403});
